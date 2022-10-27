@@ -1,56 +1,63 @@
-""" EX05."""
+"""EX05 - Testing Util Functions."""
 
 __author__ = "730579449"
-
-
-"""Tests for the sum function."""
 
 
 from utils import only_evens, concat, sub
 
 
 def test_only_evens_empty() -> None:
-    xs: list[int] = []
-    assert only_evens([]) == []
+    """Returns empty list."""
+    xs: list[int] = list()
+    assert only_evens(xs) == []
 
 
 def test_only_evens_single_item() -> None:
-    xs: list[int] = [4]
-    assert only_evens(xs) == [4]
+    """Return only evens."""
+    xs: list[int] = [1, 2, 3, 4]
+    assert only_evens(xs) == [2, 4]
 
 
 def test_only_evens_many_items() -> None:
-    xs: list[int] = [4, 4, 4]
-    assert only_evens(xs) == [4, 4, 4]
+    """Checks for negatives."""
+    xs: list[int] = [-4, 4, 4]
+    assert only_evens(xs) == [-4, 4, 4]
 
 
-    def test_concat_empty() -> None:
-    xs: list[int] = []
-    assert concat([]) == 0.0
+def test_concat_edge_case() -> None:
+    """Return an empty string."""
+    xs1: list[int] = list()
+    xs2: list[int] = list()
+    assert concat(xs1, xs2) == []
 
 
-def test_concat_single_item() -> None:
-    xs: list[int] = [110.0]
-    assert concat(xs) == 110.0
+def test_concat_different_lengths() -> None:
+    """Checks for differing lengths."""
+    xs1: list[int] = [4, 6, 8, 7]
+    xs2: list[int] = [1, 2, 3]
+    assert concat(xs1, xs2) == []
 
 
 def test_concat_many_items() -> None:
-    xs: list[float] = [1.0, 2.0, 3.0]
-    assert concat(xs) == 6.0
+    """Checks for general functionality."""
+    xs1: list[int] = [1, 2, 3]
+    xs2: list[int] = [4, 5, 6]
+    assert concat(xs1, xs2) == [1, 2, 3, 4, 5, 6]
 
 
 def test_sub_empty() -> None:
-    xs: list[float] = []
-    assert sub([]) == 0.0
-
-
-def test_sub_single_item() -> None:
-    xs: list[float] = [110.0]
-    assert sub(xs) == 110.0
+    """Returns empty list."""
+    xs: list[int] = []
+    assert sub(xs, 10, -2) == []
 
 
 def test_sub_many_items() -> None:
-    xs: list[float] = [1.0, 2.0, 3.0]
-    assert sub(xs) == 6.0
+    """Tests sub works."""
+    xs: list[int] = [10, 25, 42, 67, 96]
+    assert sub(xs, 1, 3) == [25, 42]
 
 
+def test_sub_negative_beg() -> None:
+    """Negative work test."""
+    xs: list[int] = [1, 2, 3, 4, 5]
+    assert sub(xs, -1, 3) == [1, 2, 3]
